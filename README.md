@@ -38,7 +38,7 @@ Installation and Setup
 
 Docker Deployment
   1. Build the Docker Image
-    $ docker build -t Expense-App .
+    $ docker build -t expense-app .
   2. Push the image to Docker Hub
      docker push <your-dockerhub-username>/expense-app:latest
   3. Pull and Run the Docker Container
@@ -83,4 +83,9 @@ Run the following command to start the application:
   $ docker-compose down // stop the containers
   Access the app at http://localhost:4000.
   
+Important Note:
+1. You run this image locally without pushing image on docker hub
+2. Ensure that you config .env and docker-compose.yml file
+3. If you run this image after pulling from docker hub then firstly config the .env and docker-compose.yml file in same directory then you run this image smootly
+    
 
