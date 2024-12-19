@@ -1,60 +1,86 @@
 # Dockerize-Expense_App
-This is fullstack expense tracking app based on ejs, tailwand,css, javascript, nodjs, express js and mongodb.
-In this app we can add our Income and expense and also re-edit our expense and delete expense.
-This Expense app amazing because I will buld fully authentication, authorization and token management.
-Unauthorized person cannot see your dashboard and your transaction.
-Below we will describe the step to run this app
+This is a full-stack Expense Tracker Application built using Node.js, Express.js, MongoDB, and EJS (Embedded JavaScript) as the templating engine. The application uses JWT (JSON Web Token) for user authentication and supports Docker for containerization.
 
-If you run this app on your locally docker demon then follow this steps
+Features
+1. User Authentication
+    Login and Logout functionality using JWT.
+    Session auto-extension with every user action.
+    Automatic logout upon token expiration.
+2. Expense Management
+    Add, update, and delete expenses.
+    View expense history.
+3. Environment Configuration
+    Secure environment variables for database connection and JWT secrets.
+4. Dockerized Application
+    Easily deployable via Docker.
+    Includes MongoDB as a service in the Docker setup.
+Prerequisites
+  Before running the application, ensure you have the following installed:
+  Node.js (v16 or later)
+  MongoDB
+  Docker
+  Git
+Installation and Setup
+1. Clone the Repository
+    $ git clone https://github.com/MuhammadAhmedZia/Dockerize-Expense_App.git
+    $ cd Dockerize-Expense-App
+2. Set Up Environment Variables
+   Create a .env file in the root directory and configure the following variables:
+     PORT=4000
+     MONGO_URL=mongodb://mongo:27017/expenso
+     JWT_SECRET=your_jwt_secret_key
+3. Install Dependencies
+    $ npm install
+4. Run the Application Locally
+    To start the app locally:
+    If you run this app on your locally docker demon then follow this steps
+    Access the app at http://localhost:4000.
 
-Step#1: Clone this app https://github.com/MuhammadAhmedZia/Dockerize-Expense_App.git
-step#2: After clone this app open your docker desktop(Demon)
-step#3: RUN this command docker-compose up --build
-step#4: Check your container usinng this command docker ps
+Docker Deployment
+  1. Build the Docker Image
+    $ docker build -t Expense-App .
+  2. Push the image to Docker Hub
+     docker push <your-dockerhub-username>/expense-app:latest
+  3. Pull and Run the Docker Container
+      Pull the image from your docker Hub repository
+       docker pull <your-dockerhub-username>/expense-app:latest
+  4.   After pull create a folder expense-tracker-app
+  5.   Create a docker-compose.yml file and paste it below doce
+        Ensure you have a docker-compose.yml file configured:
+          version: '3.8'
+          services:
+            app:
+              build: .
+              container_name: expenso
+              ports:
+                - "4000:4000"
+              depends_on:
+                - mongo
+              networks:
+                - app-network
+              environment:
+                - ENV MONGO_URL="mongodb://mongo:27017/expenso"
+                - ENV JWT_Secret='your_jwt_secret_key'
+              image: ahmedzia786/expenso
+            mongo:
+              image: mongo
+              container_name: mongodb
+              ports:
+                - "27017:27017"
+              networks:
+                - app-network
+          networks:
+            app-network:
+              driver: bridge
+2. Set Up Environment Variables
+     Create a .env file in the root directory and configure the following variables:
+     PORT=4000
+     MONGO_URL=mongodb://mongo:27017/expenso
+     JWT_SECRET=your_jwt_secret_key
 
-If you want to run this app after pulling  docker hub then firstly you push this image on dockerhub 
-follow these steps 
-
-step#1: Create your account on dockerhub and create repository
-step#2: tag your image following this command  "docker tag expense-app your-docker-username/expense-app:latest"
-step#3: login to docker Hub to this command "docker login"
-step#4: Push the Image to Docker Hub to this command "docker push your-docker-username/expense-app:latest"
-step#5: Verify on Docker Hub
-
-After push your docker image to pull your image and follow these commands
-
-step#1: pull you docker image on Docker Hub following command "docker pull your-docker-username/expense-app:latest"
-step#2 After pulling the docker image create a new folder
-step#3 Inside folder create .env file and write this bellow code
-  MONGO_URL = "mongodb://mongo:27017/expenso"
-  PORT = 4000
-  JWT_Secret = 'your_jwt_secret_key'
-Step#4  create docker-compose.yml file and write below code
-  version: '3.8'
-services:
-  app:
-    build: .
-    container_name: expensooo
-    ports:
-      - "5000:4000"
-    depends_on:
-      - mongo
-    networks:
-      - app-network
-    environment:
-      - ENV MONGO_URL="mongodb://mongo:27017/expenso"
-      - ENV JWT_Secret='your_jwt_secret_key'
-    image: ahmedzia786/expenso
-  mongo:
-    image: mongo
-    container_name: mongooseee
-    ports:
-      - "27017:27017"
-    networks:
-      - app-network
-networks:
-  app-network:
-    driver: bridge
-  Step#5: open your code editer terminal and write this command docker-compose up
+Run the following command to start the application:
+  $ docker-compose up -d // run the containers
+  $ docker-compose down // stop the containers
+  Access the app at http://localhost:4000.
   
 
