@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/Expense_Tracker_App!')
+mongoose.connect(process.env.MONGO_URL )
 .then(() => console.log('Database connected'))
 .catch(err => console.log('Database error: ', err));
 

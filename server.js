@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 const userRoute = require('./routes/userRoutes');
 const dashboardRoute = require('./routes/dashboardRoute')
 require('./config/database')
@@ -23,5 +23,5 @@ app.use('/',userRoute);
 app.use('/',dashboardRoute);
 
 app.listen(PORT,()=>{
-    console.log('server started on port:5000');
+    console.log('server started on port:4000');
 });

@@ -191,7 +191,7 @@
                 <div class="chart-container ">
                     <h3 class="text-center mt-2">Expense Chart</h3>
                     <canvas class="mb-3" id="pieChart" width="370" height="370"></canvas>
-                    <input type="hidden" id="totalIncome" value="<%= totalIncome %>">
+                    <input type="hidden" id="totalAmount" value="<%= totalAmount %>">
                     <input type="hidden" id="totalExpense" value="<%= totalExpense %>">
                 </div>
 
@@ -283,15 +283,15 @@
     </div>
 
     <script>
-        const totalIncome = parseFloat(document.getElementById('totalIncome').value);
+        const totalAmount = parseFloat(document.getElementById('totalAmount').value);
         const totalExpense = parseFloat(document.getElementById('totalExpense').value);
         const ctx = document.getElementById('pieChart').getContext('2d');
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Income', 'Expense'],
+                labels: ['Total Amount', 'Expense'],
                 datasets: [{
-                    data: [totalIncome, totalExpense],
+                    data: [totalAmount, totalExpense],
                     backgroundColor: ['#28a745', '#dc3545']
                 }]
             },
@@ -312,6 +312,19 @@
                 }
             }
         });
+
+        // Add functionality for jwt token extended
+        setInterval(() => {
+            // Check if the 'jwt' cookie exists
+            const token = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('token='));
+
+            if (!token) {
+                // If no token, redirect to login page
+                window.location.href = '/login';
+            }
+        }, 300000); // Check every 1 minute
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
